@@ -44,11 +44,17 @@
 <body class="color-bg-subtle">
     <nav class="UnderlineNav" style="background-color:#22272e !important">
         <div class="UnderlineNav-body" style="text-align: center !important;">
-            <h3 class="color-fg-on-emphasis pl-3" id="title"  >ใช้งาน Python บนเว็บไซต์</h3>
+            <h3 class="color-fg-on-emphasis pl-3" id="title"  >Around Python</h3>
         </div>
       </nav>
+
+      <div class="blankslate">
+        <img src="static/python.svg" class="logo-python" class="blankslate-image" />
+        <h3 class="blankslate-heading">ใช้งาน Python บนเว็บไซต์</h3>
+        <p>คุณสามารถเขียนภาษา Python ได้บนเว็บไซต์ได้เลย ฝั่งซ้ายคือช่องสำหรับเขียนโค้ด ฝั่งขวาคือช่องสำหรับแสดงผลของโปรแกรม</p>
+      </div>
       
-    <div class="container-lg clearfix " style="padding-top: 48px;padding-bottom: 24px;">
+    <div class="container-lg clearfix ">
 
         <div class="col-6 float-left p-12">
             <!-- our code editor, where codemirror renders it's editor -->
@@ -58,12 +64,12 @@
             <!-- output section where we show the stdout of the python code execution -->
             <textarea readonly class="color-shadow-small p-3" id="output" name="output"></textarea>
         </div>
-    </div>
-    <div class="col-6 p-2 mx-auto ">
-        <center>
-        <button onclick="evaluatePython()" type="button" id="run" class="btn btn-outline"><i class="ti ti-caret-right"></i> เรียกใช้</button>
-        <button onclick="clearHistory()" type="button" id="clear" class="btn btn-danger"><i class="ti ti-rotate"></i> ล้างประวัติโค้ด</button>
-    </center>
+        <div class="blankslate">
+            <div class="blankslate-action">
+                <button onclick="evaluatePython()" type="button" id="run" class="btn btn-outline"><i class="ti ti-caret-right"></i> เรียกใช้</button>
+                <button onclick="clearHistory()" type="button" id="clear" class="btn btn-danger"><i class="ti ti-rotate"></i> ล้างประวัติโค้ด</button>
+            </div>
+        </div>
     </div>
 
     <style>
@@ -87,9 +93,12 @@
     color: aliceblue;
     
     }
-    nav.UnderlineNav {
-    padding: 24px 0px;
+    .blankslate {
+    position: relative;
+    padding: 17px;
+    text-align: center;
 }
+
     </style>
 
 
