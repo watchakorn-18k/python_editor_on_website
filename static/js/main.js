@@ -13,8 +13,16 @@ const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
               matchBrackets: true,
             });
 // set the initial value of the editor
-editor.setValue("print('Hello world')");
-output.value = "Initializing...\n";
+editor.setValue("print('สวัสดีโลก')");
+
+output.value = "กำลังเริ่มโปรแกรม...\n";
+
+if (output.value === "กำลังเริ่มโปรแกรม...\n") {
+   //id run
+  $("#run").attr("disabled", true);
+  $("#clear").attr("disabled", true);
+}
+
 
 // Add pyodide returned value to the output
 function addToOutput(stdout) {
@@ -33,9 +41,13 @@ async function main() {
   });
   output.value = pyodide.runPython(`
       import sys
-      sys.version
+      show = list(sys.version.split(" "))
+      result = "Python เวอร์ชั่น : " + show[0]
+      result
   `);
-  output.value += "\n" + "Python Ready !" + "\n";
+  output.value += "\n" + "-- Python พร้อมทำงาน --" + "\n";
+  $("#run").attr("disabled", false);
+  $("#clear").attr("disabled", false);
   return pyodide;
 }
 // run the main funciton
