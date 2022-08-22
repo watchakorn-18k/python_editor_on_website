@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตัวแก้ไขโค้ด Python | รอบเรื่องไพทอน</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- installing tailwindcss from cdn, don't do this for production application -->
@@ -35,16 +37,22 @@
             height: 100%;
         }
 
-        #title {
+        #title,.blankslate,#output {
             font-family: 'Kanit', sans-serif;
         }
     </style>
 </head>
 
 <body class="color-bg-subtle">
-    <nav class="UnderlineNav" style="background-color:#22272e !important">
-        <div class="UnderlineNav-body" style="text-align: center !important;">
-            <h3 class="color-fg-on-emphasis pl-3" id="title"  >Around Python</h3>
+    <nav class="UnderlineNav UnderlineNav--right" style="background-color:#22272e !important" aria-label="Foo bar">
+        <div class="UnderlineNav-actions">
+            <a href="https://watchakorn-18k.github.io/around-python-website/">
+            <h3 class="color-fg-on-emphasis pl-3" id="title" >รอบเรื่องไพทอน</h3></a>
+        </div>
+        <div class="UnderlineNav-body">
+            <a href="https://github.com/watchakorn-18k/python_editor_on_website" id="repo" target="_blank">
+                <svg aria-hidden="true" role="img" class="color-fg-on-emphasis" viewBox="0 0 16 16" width="32" height="32" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+            </a>
         </div>
       </nav>
 
@@ -66,8 +74,8 @@
         </div>
         <div class="blankslate">
             <div class="blankslate-action">
-                <button onclick="evaluatePython()" type="button" id="run" class="btn btn-outline"><i class="ti ti-caret-right"></i> เรียกใช้</button>
-                <button onclick="clearHistory()" type="button" id="clear" class="btn btn-danger"><i class="ti ti-rotate"></i> ล้างประวัติโค้ด</button>
+                <button onclick="evaluatePython()" type="button" id="run" class="btn btn-outline tooltipped tooltipped-sw tooltipped-align-right-1 tooltipped-no-delay" aria-label="กดเพื่อให้คำสั่งที่เขียนทำงานและแสดงผลที่ช่องด้านขวา"><i class="ti ti-caret-right"></i> เรียกใช้</button>
+                <button onclick="clearHistory()" type="button" id="clear" class="btn btn-danger tooltipped tooltipped-se tooltipped-align-left-1 tooltipped-no-delay" aria-label="กดเพื่อลบสิ่งที่แสดงผลไว้ก่อนที่ช่องด้านขวา"><i class="ti ti-rotate"></i> ล้างประวัติโค้ด</button>
             </div>
         </div>
     </div>
@@ -75,7 +83,7 @@
     <style>
         .CodeMirror.cm-s-dracula,#output {
     /* height respotive px */
-    height: 45rem;
+    height: 40rem;
     width: 30rem;
     font-size: 20px;
     border-radius: 10px;
@@ -98,9 +106,17 @@
     padding: 17px;
     text-align: center;
 }
+h3#title {
+    padding: 10px;
+}
+#repo{
+    padding: 10px;
+}
 
     </style>
+    <script>
 
+    </script>
 
     <script src="/static/js/main.js"></script>
 </body>
