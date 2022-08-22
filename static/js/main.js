@@ -1,3 +1,6 @@
+if(Cookies.get('name_file') === undefined){
+  Cookies.set('name_file', 'App', { expires: 1 });
+}
 // find the output element
 const output = document.getElementById("output");
 // initializing the codemirror and pass configuration to support python and dracula theme
@@ -15,12 +18,22 @@ const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
 // set the initial value of the editor
 editor.setValue("print('สวัสดีโลก')");
 
+DownloadPy = () =>{
+  fileTxt = editor.getValue();
+  // create file txt
+  var blob = new Blob(["''' 🖥️ พัฒนาขึ้นโดย https://github.com/watchakorn-18k '''\n",fileTxt], {type: "text/plain;charset=utf-8"});
+  // dwonload file txt
+  saveAs(blob, Cookies.get('name_file')+".py");
+  
+}
+
 output.value = "กำลังเริ่มโปรแกรม...\n";
 
 if (output.value === "กำลังเริ่มโปรแกรม...\n") {
    //id run
   $("#run").attr("disabled", true);
   $("#clear").attr("disabled", true);
+  $("#Downloadpy").attr("disabled", true);
 }
 
 
@@ -48,7 +61,24 @@ async function main() {
   output.value += "\n" + "-- Python พร้อมทำงาน --" + "\n";
   $("#run").attr("disabled", false);
   $("#clear").attr("disabled", false);
+  $("#Downloadpy").attr("disabled", false);
   return pyodide;
+}
+
+
+
+Rename = () =>{
+  // save to cookie
+  Cookies.set('name_file', $("#box-name-file").val(), { expires: 1 });
+  // set value to input
+  $("#box-name-file").val(Cookies.get('name_file'));
+  // display open
+  $('.toast-bar').delay(100).fadeIn().delay(1000).fadeOut(1000);
+  // hide open.delay(2000).fadeOut();.
+
+  
+
+
 }
 // run the main funciton
 let pyodideReadyPromise = main();

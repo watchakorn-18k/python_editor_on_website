@@ -15,7 +15,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="static/python.svg">
     <link rel="icon" type="image/png" sizes="16x16" href="static/python.svg">
     
-
+    <script>
+        
+    </script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
@@ -34,6 +36,8 @@
     <!-- import codemirror dracula theme styles from cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/theme/dracula.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
     <!-- import font google kanit -->
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -67,9 +71,21 @@
         <h3 class="blankslate-heading">ใช้งาน Python บนเว็บไซต์</h3>
         <p>คุณสามารถเขียนภาษา Python ได้บนเว็บไซต์ได้เลย ฝั่งซ้ายคือช่องสำหรับเขียนโค้ด ฝั่งขวาคือช่องสำหรับแสดงผลของโปรแกรม</p>
       </div>
-      
-    <div class="container-lg clearfix ">
 
+    <div class="container-lg clearfix ">
+        <form>
+            <div class="form-group">
+                <div class="form-group-body">
+                  <input class="form-control input-lg" style="font-family: Kanit;" type="text" name="file-name" id="box-name-file"/>
+                  <button class="btn tooltipped tooltipped-ne tooltipped-align-left-1 tooltipped-no-delay" aria-label="กดเพื่อแก้ไขชื่อไฟล์ตามช่องด้านซ้าย" type="button" onclick="Rename()">
+                    <!-- <%= octicon "pencil" %> -->
+                    <svg class="octicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25a1.75 1.75 0 01.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.064.108l-.558 1.953 1.953-.558a.249.249 0 00.108-.064l6.286-6.286z"></path></svg>
+                  </button>
+                </div>
+              </div>
+          </form>
+        <!-- space -->
+        <div class="space"></div>
         <div class="col-6 float-left p-12">
             <!-- our code editor, where codemirror renders it's editor -->
             <textarea id="code" name="code" class="color-shadow-small p-3"></textarea>
@@ -82,8 +98,26 @@
             <div class="blankslate-action">
                 <button onclick="evaluatePython()" type="button" id="run" class="btn btn-outline tooltipped tooltipped-sw tooltipped-align-right-1 tooltipped-no-delay" aria-label="กดเพื่อให้คำสั่งที่เขียนทำงานและแสดงผลที่ช่องด้านขวา"><i class="ti ti-caret-right"></i> เรียกใช้</button>
                 <button onclick="clearHistory()" type="button" id="clear" class="btn btn-danger tooltipped tooltipped-se tooltipped-align-left-1 tooltipped-no-delay" aria-label="กดเพื่อลบสิ่งที่แสดงผลไว้ก่อนที่ช่องด้านขวา"><i class="ti ti-rotate"></i> ล้างประวัติโค้ด</button>
+                <button class="btn btn-primary mr-2" type="button" id="Downloadpy" onclick="DownloadPy()">
+                    <!-- <%= octicon "download" %> -->
+                    <svg class="octicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path></svg>
+                    <span>ดาวน์โหลดไฟล์</span>
+                  </button>
             </div>
         </div>
+    </div>
+    <div class="toast-bar" style="display: none;">
+        <div class="p-1">
+            <div class="Toast Toast--success">
+              <span class="Toast-icon">
+                <!-- <%= octicon "check" %> -->
+                <svg width="12" height="16" viewBox="0 0 12 16" class="octicon octicon-check" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z" />
+                </svg>
+              </span>
+              <span class="Toast-content" style="font-family: Kanit;">เปลี่ยนชื่อไฟล์เรียบร้อย</span>
+            </div>
+          </div>
     </div>
 
     <style>
@@ -118,10 +152,38 @@ h3#title {
 #repo{
     padding: 10px;
 }
+.space{
+    padding: px;
+}
+#box-name-file{
+    width: 15rem;
+}
+.toast-bar{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+}
 
     </style>
     <script>
-
+        let counter = 0;
+        let loop2 = setInterval(function(){
+            counter++;
+            checkValue()
+            if (counter == 20){
+                console.log(counter);
+                clearInterval(loop2)
+            }
+                
+        },1);
+        checkValue = () =>{
+            if ( $('input[name="file-name"]').val() === '' ) {
+            $('input[name="file-name"]').val(Cookies.get('name_file'));
+        }
+        }
+   
     </script>
 
     <script src="/static/js/main.js"></script>
